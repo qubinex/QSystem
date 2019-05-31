@@ -16,22 +16,22 @@ function Loading() {
     </div>
   );
 }
-
+/*
 const Breadcrumbs = Loadable({
   loader: () => import('./views/Base/Breadcrumbs'),
   loading: Loading,
 });
-
+*/
 const Dashboard = Loadable({
   loader: () => import('./views/Dashboard'),
   loading: Loading,
 });
-
+/*
 const MainPage = Loadable({
   loader: () => import('./views/Main/main'),
   loading: Loading,
 });
-
+*/
 const StudentIndex = Loadable({
   loader: () => import('./views/Student/Index'),
   loading: Loading,
@@ -65,7 +65,7 @@ const routes = [
     Project start
   */
   /* eslint-disable */
-  { path: '/Main', exact: true, name: 'Main', component: RequireAuth(MainPage) },
+  // { path: '/Main', exact: true, name: 'Main', component: RequireAuth(MainPage) },
   { path: '/Student/Index', exact: true, name: 'StudentIndex', component: RequireAuth(StudentIndex) },
   { path: '/Student/Registration', exact: true, name: 'Student registration', component: RequireAuth(StudentRegistrationIndex) },
   { path: '/Student/Attendance', exact: true, name: 'Student attendance', component: RequireAuth(StudentAttendanceIndex) },
@@ -75,7 +75,7 @@ const routes = [
   // Project End
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs },
+  // { path: '/base/breadcrumbs', name: 'Breadcrumbs', component: Breadcrumbs },
   /* eslint-enable */
 ];
 

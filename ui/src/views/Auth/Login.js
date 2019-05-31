@@ -76,6 +76,8 @@ class Login extends Component {
                           <Button color="primary" className="px-4" type="submit">
                             {isSaving ? <Spinner color="light" type="grow" size="sm" /> : 'Save'}
                           </Button>
+                          <div class="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false">
+                          </div>
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
