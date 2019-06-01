@@ -27,7 +27,7 @@ class MainPage extends Component {
           <CardBody>
             <Row>
               <Col xs="6">
-                <HomePageWidget mainText="" header="Scan QR code" icon="fa fa-qrcode" />
+                <HomePageWidget mainText="" header="Scan QR code" icon="fa fa-qrcode" link="/#/Main/SearchByQR" />
               </Col>
               <Col xs="6">
                 <HomePageWidget mainText="" header="Search" icon="fa fa-search" />

@@ -64,7 +64,7 @@ router.post('/login', (req, res, next) => {
         uid: user.uid,
         username: user.username,
         expires: expires,
-        roleBinary: user.role_binary,
+        roleBinary: user.role_binary || userRoles.accessLevels.guest,
         schoolId: user.school_id,
       }
       const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);

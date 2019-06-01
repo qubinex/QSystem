@@ -6,41 +6,47 @@ import {
   CardBody,
   CardHeader,
 } from 'reactstrap';
-
+import Axios from 'axios';
 import QRReader from 'react-qr-reader';
+
+import MainContext from './MainContext';
+import QRReaderComponent from './QRReader';
+import SearchResultComponent from './SearchResult';
+import SearchResultInvalidComponent from './SearchResultInvalid';
 
 class SearchByQR extends Component {
   constructor(props) {
     super(props);
     this.state = {
       qrId: '',
+      vendorDetail: null,
+      step: 1,
     };
   }
 
-  handleScan = data => {
-    if (data) {
-      this.makeBeepSound();
-      this.setState({
-        qrId: data
-      })
-    }
+  setVendorDetails = (qrId, vendorDetail) => {
+    this.setState({ qrId, vendorDetail });
   }
 
-  makeBeepSound = () => {
-    const vol = 100;
-    const freq = 520;
-    const duration = 200;
+  setStep = (step) => {
+    this.setState({ step });
+  }
 
-    const sound = new AudioContext();
-    const v = sound.createOscillator();
-    const u = sound.createGain();
-    v.connect(u);
-    v.frequency.value = freq;
-    v.type = 'square';
-    u.connect(sound.destination);
-    u.gain.value = vol * 0.01;
-    v.start(sound.currentTime);
-    v.stop(sound.currentTime + duration * 0.001);
+  getComponent = () => {
+    let component = null;
+    const { step } = this.state;
+    switch (step) {
+      case 2.1:
+        component = <SearchResultComponent />;
+        break;
+      case 2.2:
+        component = <SearchResultInvalidComponent />;
+        break;
+      default:
+        component = <QRReaderComponent setVendorDetails={this.setVendorDetails} setStep={this.setStep} />;
+        break;
+    }
+    return component;
   }
 
   handleSearch = () => {
@@ -48,28 +54,20 @@ class SearchByQR extends Component {
   }
 
   render() {
+    const { qrId, vendorDetail } = this.state;
     return (
       <React.Fragment>
-        <Row>
-          <Col md={{ offset: 3, size: 6 }}>
-            <Card>
-              <CardHeader>
-                Scan QR code
-              </CardHeader>
-              <CardBody>
-                <QRReader
-                  delay={300}
-                  onError={this.handleError}
-                  onScan={this.handleScan}
-                  style={{ width: '100%' }}
-                />
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        
+        <MainContext.Provider
+          value={{ qrId, vendorDetail }}
+        >
+          <Row>
+            <Col md={{ offset: 3, size: 6 }}>
+              {this.getComponent()}
+            </Col>
+          </Row>
+        </MainContext.Provider>
       </React.Fragment>
-    )
+    );
   }
 }
 

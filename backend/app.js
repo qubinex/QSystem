@@ -10,11 +10,9 @@ var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var logoutRouter = require('./routes/logout');
 var usersRouter = require('./routes/users');
-var student = require('./routes/student/student');
 var country = require('./routes/_common/country');
 var date = require('./routes/_common/date');
-var studentAttendance = require('./routes/student/attendance');
-var studentReplacement = require('./routes/student/replacement');
+var main = require('./routes/main/main');
 
 
 const passport = require('passport');
@@ -61,12 +59,9 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/logout', logoutRouter);
 app.use('/users', usersRouter);
-app.use('/student/student', student);
-app.use('/student/attendance', studentAttendance);
-app.use('/student/replacement', studentReplacement);
 app.use('/api/country', country);
 app.use('/api/date', date);
-
+app.use('/main', main);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

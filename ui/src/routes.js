@@ -32,6 +32,16 @@ const SearchByQR = Loadable({
   loading: Loading,
 });
 
+const SearchResult = Loadable({
+  loader: () => import('./views/Main/SearchResult'),
+  loading: Loading,
+});
+
+const QueueStatus = Loadable({
+  loader: () => import('./views/Main/QueueStatus'),
+  loading: Loading,
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-condg
 const routes = [
   /*
@@ -43,6 +53,8 @@ const routes = [
   { path: '/Main', exact: true, name: 'MainPage', component: RequireAuth(MainPage) },
   { path: '/Main/SearchByQR', exact: true, name: 'SearchByQR', component: RequireAuth(SearchByQR) },
   { path: '/Main/SearchByText', exact: true, name: 'SearchByQR', component: RequireAuth(SearchByQR) },
+  { path: '/Main/SearchResult', exact: true, name: 'SearchResult', component: RequireAuth(SearchResult) },
+  { path: '/Queue/Status', exact: true, name: 'Queue status', component: RequireAuth(QueueStatus) },
  
   // Project End
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
