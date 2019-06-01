@@ -1,4 +1,4 @@
-import React, { Componet } from 'react';
+import React, { Component } from 'react';
 import { Formik, Form, Field } from 'formik';
 import {
   FormGroup,
@@ -9,7 +9,7 @@ import {
 
 import FormikReactStrapInput from '../_common/component/formikReactStrapInput';
 
-class SearchVendor extends Componet {
+class SearchVendor extends Component {
   render() {
     return (
       <Formik

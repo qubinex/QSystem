@@ -12,9 +12,9 @@ class SearchByText extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 1,
       qrId: '',
       vendorDetail: null,
+      step: 1,
     };
   }
 
@@ -27,8 +27,8 @@ class SearchByText extends Component {
         break;
       default:
         component = <SearchVendor />;
+        break;
     }
-
     return component;
   }
 

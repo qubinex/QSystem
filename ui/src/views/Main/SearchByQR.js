@@ -6,8 +6,6 @@ import {
   CardBody,
   CardHeader,
 } from 'reactstrap';
-import Axios from 'axios';
-import QRReader from 'react-qr-reader';
 
 import MainContext from './MainContext';
 import QRReaderComponent from './QRReader';
