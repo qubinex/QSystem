@@ -6,6 +6,7 @@ import {
   FormGroup,
   Label,
   Col,
+  Row,
   Button,
 } from 'reactstrap';
 
@@ -19,31 +20,30 @@ class QueueHeavy extends Component {
     return (
       <Card>
         <CardHeader>
-          Current queue status
+          Long waiting time expected
         </CardHeader>
         <CardBody>
+          <span>
+            <i className="fa fa-warning" />
+            <b>
+              The selected vendor is current having longer than usual waiting time. Are you sure you want to proceed?
+            </b>
+            <i className="fa fa-warning" />
+          </span>
           <FormGroup row>
             <Col xs={{ size: 3 }}>
-              <Label>Vendor:</Label>
+              <Label>Current queue:</Label>
             </Col>
             <Col xs={{ size: 6 }}>
-              <Label>Vendor 1</Label>
+              <Label>123</Label>
             </Col>
           </FormGroup>
           <FormGroup row>
             <Col xs={{ size: 3 }}>
-              <Label>Current queue number:</Label>
+              <Label>Latest queue</Label>
             </Col>
             <Col xs={{ size: 6 }}>
-              <Label>102</Label>
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Col xs={{ size: 3 }}>
-              <Label>Your queue number</Label>
-            </Col>
-            <Col xs={{ size: 6 }}>
-              <Label>200</Label>
+              <Label>223</Label>
             </Col>
           </FormGroup>
           <FormGroup row>
@@ -51,12 +51,12 @@ class QueueHeavy extends Component {
               <Label>Est. time</Label>
             </Col>
             <Col xs={{ size: 6 }}>
-              <Label>20 mins</Label>
+              <Label>120 mins</Label>
             </Col>
           </FormGroup>
           <FormGroup row>
             <Col xs={{ size: 6 }}>
-              <Button>Cancel queue</Button>
+              <Button>Queue now!</Button>
             </Col>
           </FormGroup>
         </CardBody>

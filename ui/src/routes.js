@@ -32,6 +32,11 @@ const SearchByQR = Loadable({
   loading: Loading,
 });
 
+const SearchByText = Loadable({
+  loader: () => import('./views/Main/SearchByText'),
+  loading: Loading,
+});
+
 const SearchResult = Loadable({
   loader: () => import('./views/Main/SearchResult'),
   loading: Loading,
@@ -39,6 +44,11 @@ const SearchResult = Loadable({
 
 const QueueStatus = Loadable({
   loader: () => import('./views/Main/QueueStatus'),
+  loading: Loading,
+});
+
+const QueueStatusHeavy = Loadable({
+  loader: () => import('./views/Main/QueueHeavy'),
   loading: Loading,
 });
 
@@ -52,9 +62,10 @@ const routes = [
   // { path: '/Main', exact: true, name: 'Main', component: RequireAuth(MainPage) },
   { path: '/Main', exact: true, name: 'MainPage', component: RequireAuth(MainPage) },
   { path: '/Main/SearchByQR', exact: true, name: 'SearchByQR', component: RequireAuth(SearchByQR) },
-  { path: '/Main/SearchByText', exact: true, name: 'SearchByQR', component: RequireAuth(SearchByQR) },
+  { path: '/Main/SearchByText', exact: true, name: 'SearchByText', component: RequireAuth(SearchByText) },
   { path: '/Main/SearchResult', exact: true, name: 'SearchResult', component: RequireAuth(SearchResult) },
   { path: '/Queue/Status', exact: true, name: 'Queue status', component: RequireAuth(QueueStatus) },
+  { path: '/Queue/StatusHeavy', exact: true, name: 'Queue heavy', component: RequireAuth(QueueStatusHeavy) },
  
   // Project End
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
