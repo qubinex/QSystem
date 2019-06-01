@@ -15,7 +15,6 @@ var country = require('./routes/_common/country');
 var date = require('./routes/_common/date');
 var studentAttendance = require('./routes/student/attendance');
 var studentReplacement = require('./routes/student/replacement');
-var studentLessonPayment = require('./routes/finance/lessonPayment');
 
 
 const passport = require('passport');
@@ -62,20 +61,9 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/logout', logoutRouter);
 app.use('/users', usersRouter);
-app.use('/attendanceStatistic', attendanceStatisticRouter);
-app.use('/annoucement/employee', annoucementEmployee);
-app.use('/annoucement/student', annoucementStudent);
 app.use('/student/student', student);
 app.use('/student/attendance', studentAttendance);
 app.use('/student/replacement', studentReplacement);
-app.use('/finance/lesson/payment', studentLessonPayment);
-app.use('/employee/employee', employee);
-app.use('/employee/recruitment', employeeRecruitment);
-app.use('/lesson/lesson', lesson);
-app.use('/school/school', school);
-app.use('/school/academy', schoolAcademy);
-app.use('/school/package', schoolPackage);
-app.use('/school/schedule', schoolSchedule);
 app.use('/api/country', country);
 app.use('/api/date', date);
 

@@ -16,62 +16,34 @@ function Loading() {
     </div>
   );
 }
-/*
-const Breadcrumbs = Loadable({
-  loader: () => import('./views/Base/Breadcrumbs'),
-  loading: Loading,
-});
-*/
+
 const Dashboard = Loadable({
   loader: () => import('./views/Dashboard'),
   loading: Loading,
 });
-/*
+
 const MainPage = Loadable({
-  loader: () => import('./views/Main/main'),
-  loading: Loading,
-});
-*/
-const StudentIndex = Loadable({
-  loader: () => import('./views/Student/Index'),
+  loader: () => import('./views/Main/Main'),
   loading: Loading,
 });
 
-const StudentRegistrationIndex = Loadable({
-  loader: () => import('./views/Student/Registration/Index'),
+const SearchByQR = Loadable({
+  loader: () => import('./views/Main/SearchByQR'),
   loading: Loading,
 });
 
-const StudentAttendanceIndex = Loadable({
-  loader: () => import('./views/Student/Attendance/Index'),
-  loading: Loading,
-});
-
-const StudentReplacementIndex = Loadable({
-  loader: () => import('./views/Student/Replacement/Index'),
-  loading: Loading,
-});
-
-const StudentAttendancePrintIndex = Loadable({
-  loader: () => import('./views/Student/Attendance/Print/Index'),
-  loading: Loading,
-});
-
-
-
-// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-condg
 const routes = [
   /*
     Project start
   */
+
   /* eslint-disable */
   // { path: '/Main', exact: true, name: 'Main', component: RequireAuth(MainPage) },
-  { path: '/Student/Index', exact: true, name: 'StudentIndex', component: RequireAuth(StudentIndex) },
-  { path: '/Student/Registration', exact: true, name: 'Student registration', component: RequireAuth(StudentRegistrationIndex) },
-  { path: '/Student/Attendance', exact: true, name: 'Student attendance', component: RequireAuth(StudentAttendanceIndex) },
-  { path: '/Student/Attendance/Print', exact: true, name: 'Print attendance', component: RequireAuth(StudentAttendancePrintIndex) },
-  { path: '/Student/Replacement', exact: true, name: 'Attendance replacement', component: RequireAuth(StudentReplacementIndex) },
-
+  { path: '/Main', exact: true, name: 'MainPage', component: RequireAuth(MainPage) },
+  { path: '/Main/SearchByQR', exact: true, name: 'SearchByQR', component: RequireAuth(SearchByQR) },
+  { path: '/Main/SearchByText', exact: true, name: 'SearchByQR', component: RequireAuth(SearchByQR) },
+ 
   // Project End
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },

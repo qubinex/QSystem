@@ -1,6 +1,8 @@
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
+const FacebookStrategy = require('passport-facebook').Strategy;
+
 var bcrypt = require('bcrypt');
 var db = require('./db');
 const logger = require('../services/logger');
@@ -17,12 +19,10 @@ module.exports = function(passport) {
           console.log('Inside local strategy callback');
           // here is where you make a call to the database
           // to find the user based on their username or email address
-          const sql = ` SELECT c.*, r.role_binary
-                        FROM credential_backend c
-                        RIGHT JOIN employee_in_school eis ON eis.credential_id = c.uid
-                        RIGHT JOIN _system_user_role r ON r.role_id = eis.user_role
-                        WHERE username = ?`;
-          db.query(sql, [username])
+          const sql = ` SELECT c.*
+                        FROM credential_consumer c
+                        WHERE is_active AND is_verified AND (username = ? OR email = ?) `;
+          db.query(sql, [username, username])
             .then((result) => {
               const rows = result[0];
               if (!rows.length) {
@@ -83,4 +83,15 @@ module.exports = function(passport) {
         done(null, user);
       });
       */
+    passport.use(new FacebookStrategy({
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: "http://localhost:3000/auth/facebook/callback"
+    },
+    function(accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  ));
 };

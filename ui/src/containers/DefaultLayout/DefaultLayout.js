@@ -86,7 +86,7 @@ class DefaultLayout extends Component {
                 <Redirect exact from="/school" to="/School/Academy/Schedule" />
                 <Redirect exact from="/employee" to="/employee" />
                 <Redirect exact from="/analytic" to="/analytic" />
-                <Redirect from="/" to="/dashboard" />
+                <Redirect from="/" to="/Main" />
               </Switch>
             </Container>
           </main>
