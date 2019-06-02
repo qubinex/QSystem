@@ -34,10 +34,11 @@ class SearchByQR extends Component {
   getComponent = () => {
     let component = null;
     const { step } = this.state;
+    const { history } = this.props;
     switch (step) {
       case '2.1':
         alert(step);
-        component = <SearchResultComponent />;
+        component = <SearchResultComponent history={history} />;
         break;
       case '2.2':
         component = <SearchResultInvalidComponent />;

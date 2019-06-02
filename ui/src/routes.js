@@ -18,7 +18,7 @@ function Loading() {
 }
 
 const Dashboard = Loadable({
-  loader: () => import('./views/Dashboard/_Dashboard'),
+  loader: () => import('./views/Dashboard/Dashboard'),
   loading: Loading,
 });
 
@@ -52,6 +52,11 @@ const QueueStatusHeavy = Loadable({
   loading: Loading,
 });
 
+const MerchantMain = Loadable({
+  loader: () => import('./views/Merchant/Main'),
+  loading: Loading,
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-condg
 const routes = [
   /*
@@ -66,6 +71,9 @@ const routes = [
   { path: '/Main/SearchResult', exact: true, name: 'SearchResult', component: RequireAuth(SearchResult) },
   { path: '/Queue/Status', exact: true, name: 'Queue status', component: RequireAuth(QueueStatus) },
   { path: '/Queue/StatusHeavy', exact: true, name: 'Queue heavy', component: RequireAuth(QueueStatusHeavy) },
+
+
+  { path: '/Merchant/Main', exact: true, name: 'Queue heavy', component: RequireAuth(MerchantMain) },
  
   // Project End
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },

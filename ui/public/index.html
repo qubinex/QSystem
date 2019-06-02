@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Akademeet - finding academy, managing academy">
+    <meta name="description" content="Q system - don't waste the time on queueing">
     <meta name="author" content="Qubinex">
-    <meta name="keyword" content="Manage student, find academy, find school, find student, manage academy, attendance">
-    <title>Akademeet | school system</title>
+    <meta name="keyword" content="Queue system | reduce queueing time | get the app queue for you">
+    <title>Q system</title>
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
@@ -23,16 +23,6 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135556662-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-135556662-1');
-    </script>
   </head>
 
   <script>
@@ -41,7 +31,7 @@
         appId      : '2375778252484998',
         cookie     : true,
         xfbml      : true,
-        version    : '3.3'
+        version    : 'v3.3'
       });
 
       FB.AppEvents.logPageView();
@@ -55,6 +45,7 @@
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+    
   </script>
 
   <!-- BODY options, add following classes to body to change options

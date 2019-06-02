@@ -61,7 +61,7 @@ router.post('/login', (req, res, next) => {
       */
       console.log(user);
       const payload = {
-        uid: user.uid,
+        uid: user.id,
         username: user.username,
         expires: expires,
         roleBinary: user.role_binary || userRoles.accessLevels.guest,
@@ -83,6 +83,14 @@ router.post('/login', (req, res, next) => {
     })
   })(req, res, next);
 });
+
+router.get('/facebook/callback',
+  passport.authenticate('facebook'), (err, user, info) => {
+    console.log('fb login success');
+  }
+);
+
+router.get('/facebook', passport.authenticate('facebook'));
 
 router.post('/verifyToken',  (req, res) => {
   passport.authenticate('jwt', {session: false}, (err, token) => {

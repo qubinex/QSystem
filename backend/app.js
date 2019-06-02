@@ -14,6 +14,7 @@ var country = require('./routes/_common/country');
 var date = require('./routes/_common/date');
 var main = require('./routes/main/main');
 var queue = require('./routes/main/queue');
+var merchantMain = require('./routes/merchant/main');
 
 
 const passport = require('passport');
@@ -64,6 +65,8 @@ app.use('/api/country', country);
 app.use('/api/date', date);
 app.use('/main', main);
 app.use('/queue', queue);
+
+app.use('/merchant/main', merchantMain);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

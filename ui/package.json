@@ -12,7 +12,7 @@
     "@coreui/react": "^2.0.5",
     "availity-reactstrap-validation": "^2.2.1",
     "axios": "^0.18.0",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "8.0.5",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.7.2",
     "classnames": "^2.2.6",

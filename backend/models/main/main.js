@@ -8,7 +8,7 @@ var MainModel={
     const sql = ` SELECT 
                     vl.*
                   FROM
-                      vendor_list vl
+                      merchant_list vl
                   LEFT JOIN
                       __vendor_type vt ON vt.id = vl.type_id
                   WHERE
@@ -24,7 +24,7 @@ var MainModel={
   },
   searchVendor:function(text, callback){
     const sql = ` SELECT * 
-                  FROM vendor_list vl
+                  FROM merchant_list vl
                   WHERE vl.name LIKE ? AND vl.is_confirmed AND vl.is_active
                   ORDER BY name`;
     db.query(sql, [`%${text}%`])

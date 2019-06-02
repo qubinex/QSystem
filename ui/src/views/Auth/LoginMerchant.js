@@ -25,9 +25,9 @@ class Login extends Component {
     const { history } = this.props;
     this.setState({ isSaving: true, errorMsg: '' });
     event.preventDefault();
-    axios.post('/auth/login', this.state, { withCredentials: true })
+    axios.post('/auth/loginMerchant', this.state, { withCredentials: true })
       .then((response) => {
-        return history.push('/');
+        return history.push('/Merchant/Main');
       })
       .catch((error) => {
         // history.push('/login')
@@ -37,23 +37,6 @@ class Login extends Component {
       .finally(() => {
         this.setState({ isSaving: false });
       });
-  }
-
-  fbLogin = (event) => {
-    const { history } = this.props;
-    axios.get('/auth/facebook', this.state, { withCredentials: true })
-    .then((response) => {
-      return history.push('/');
-    })
-    .catch((error) => {
-      // history.push('/login')
-      // console.log(error);
-      this.setState({ errorMsg: error.response ? error.response.data : 'Error' });
-      // console.log(error);
-    })
-    .finally(() => {
-      this.setState({ isSaving: false });
-    });
   }
 
   render() {
@@ -108,9 +91,6 @@ class Login extends Component {
                       <h2>Signin with facebook</h2>
                       <br />
                       <div className="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false" />
-                      <Button onClick={this.fbLogin}>
-                        FB
-                      </Button>
                     </div>
                   </CardBody>
                 </Card>

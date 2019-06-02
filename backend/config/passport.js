@@ -6,6 +6,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 var bcrypt = require('bcrypt');
 var db = require('./db');
 const logger = require('../services/logger');
+const Auth = require('../models/users/Auth');
 
 module.exports = function(passport) {
 
@@ -86,10 +87,10 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "http://localhost:3000/auth/facebook/callback"
+      callbackURL: "/auth/facebook/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+      Auth.FindOrCreateConsumer({ fbProfile: profile }, function (err, user) {
         return cb(err, user);
       });
     }
