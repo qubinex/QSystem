@@ -8,8 +8,30 @@ import {
   Col,
   Button,
 } from 'reactstrap';
+import socketIOClient from 'socket.io-client';
+
+import MainContext from './MainContext';
 
 class QueueStatus extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      response: false,
+      // endpoint: '/', //'/queue/getQueueStatus',
+      endpoint: '/',
+    };
+  }
+
+  componentDidMount() {
+    const { qrId } = this.context;
+    const { endpoint } = this.state;
+    const socket = socketIOClient(endpoint, { query: `param=${qrId}` });
+    // socket.emit('getQueueStatus', { query: 'param=bar' });
+    socket.on('queueStatusUpdate', (data) => {
+      this.setState({ response: data });
+      console.log(data);
+    });
+  }
 
   getCurrentStatus = () => {
 
@@ -17,6 +39,7 @@ class QueueStatus extends Component {
 
   render() {
     return (
+
       <Card>
         <CardHeader>
           Current queue status
@@ -65,4 +88,5 @@ class QueueStatus extends Component {
   }
 }
 
+QueueStatus.contextType = MainContext;
 export default QueueStatus;

@@ -27,4 +27,22 @@ router.post('/searchByQRCode',
   })
 );
 
+router.post('/searchByText', 
+  passport.authenticate('jwt', { session: false }), 
+  routesAuthService.allowOnly(userRoles.accessLevels.guest, (req, res) => {
+    const jwt = req.cookies.jwt;
+    const decodedJWT = jwtDecode(jwt);
+    const data = req.body;
+    MainModel.searchVendor(data.text, function(err,rows){
+      if(err){
+        console.log(err);
+        logger.error(err);
+        res.status(500).send({ error: 'Something failed!' });
+      }else{
+        res.json(rows);
+      }
+    });
+  })
+);
+
 module.exports=router;

@@ -18,12 +18,13 @@ class SearchByQR extends Component {
     this.state = {
       qrId: '',
       vendorDetail: null,
-      step: 1,
+      step: '1.0',
     };
   }
 
   setVendorDetails = (qrId, vendorDetail) => {
     this.setState({ qrId, vendorDetail });
+    this.setStep('2.1');
   }
 
   setStep = (step) => {
@@ -34,10 +35,11 @@ class SearchByQR extends Component {
     let component = null;
     const { step } = this.state;
     switch (step) {
-      case 2.1:
+      case '2.1':
+        alert(step);
         component = <SearchResultComponent />;
         break;
-      case 2.2:
+      case '2.2':
         component = <SearchResultInvalidComponent />;
         break;
       default:

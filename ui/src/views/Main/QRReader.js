@@ -9,9 +9,7 @@ import {
 import Axios from 'axios';
 import QRReader from 'react-qr-reader';
 
-import MainContext from './MainContext';
-
-class SearchByQR extends Component {
+class QRReaderComponent extends Component {
   handleScan = (qrCode) => {
     const { history, setVendorDetails, setStep } = this.props;
     if (qrCode) {
@@ -20,10 +18,10 @@ class SearchByQR extends Component {
         .then((res) => {
           const { data } = res;
           if (data.length === 0) {
-            setStep(2.2);
+            setStep('2.2');
           } else {
             setVendorDetails(qrCode, data[0]);
-            setStep(2.1);
+            // setStep('2.1');
           }
         })
         .catch((err) => {
@@ -59,7 +57,6 @@ class SearchByQR extends Component {
 
   render() {
     return (
-      
       <Card>
         <CardHeader>
           Scan QR code
@@ -73,9 +70,8 @@ class SearchByQR extends Component {
           />
         </CardBody>
       </Card>
-         
     );
   }
 }
 
-export default SearchByQR;
+export default QRReaderComponent;

@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var country = require('./routes/_common/country');
 var date = require('./routes/_common/date');
 var main = require('./routes/main/main');
+var queue = require('./routes/main/queue');
 
 
 const passport = require('passport');
@@ -62,6 +63,7 @@ app.use('/users', usersRouter);
 app.use('/api/country', country);
 app.use('/api/date', date);
 app.use('/main', main);
+app.use('/queue', queue);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

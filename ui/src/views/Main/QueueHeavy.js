@@ -11,7 +11,6 @@ import {
 } from 'reactstrap';
 
 class QueueHeavy extends Component {
-
   getCurrentStatus = () => {
 
   }
