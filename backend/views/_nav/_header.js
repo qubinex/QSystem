@@ -1,6 +1,6 @@
 const userRoles = require('../../config/userRoles');
 module.exports = {
-  items: [
+  items: [/*
     {
       name: 'Home',
       url: '',
@@ -30,6 +30,6 @@ module.exports = {
       url: 'system',
       icon: 'cogs',
       role: userRoles.accessLevels.portalOwner,
-    },
+    },*/
   ],
 };

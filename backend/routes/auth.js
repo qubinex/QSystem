@@ -7,14 +7,9 @@ const userRoles = require('../config/userRoles');
 const Auth = require('../models/users/Auth');
 
 // sidebar nav config
-const navigationPorterOwner = require('../views/_nav/_nav');
-const navigationManager = require('../views/_nav/_navManager');
-const navigationOfficeAdmin = require('../views/_nav/_navAdmin');
-const navigationInstructor = require('../views/_nav/_navInstructor'); 
-const navigationEmployee = require('../views/_nav/_navEmployee'); 
-const navigationReport = require('../views/_nav/_navReports'); 
-const navigationSchool = require('../views/_nav/_navSchool'); 
-const navigationSetting = require('../views/_nav/_navSetting');
+const consumerNav = require('../views/_nav/_nav_consumer');
+const merchantNav = require('../views/_nav/_nav_merchant');
+
 
 // header nav config
 const headerNav = require('../views/_nav/_header'); 
@@ -206,39 +201,10 @@ router.post('/getNavigationOnUserRole', (req, res) => {
     }
     let component = [];
     let headers = [];
-    switch(category) {
-      case 'Home':
-        switch (roleBinary) {
-          case 256:
-            component = navigationPorterOwner;
-            break;
-          case 128:
-            component = navigationManager;
-            break;
-          case 64:
-            component = navigationOfficeAdmin;
-            break;
-          case 32:
-            component = navigationInstructor;
-            break;
-          default:
-            component = navigationOfficeAdmin;
-        }
-        break;
-      case 'School':
-        component = navigationSchool;
-        break;
-      case 'Analytic':
-        component = navigationReport;
-        break;
-      case 'Setting':
-        component = navigationSetting;
-        break;
-      case 'Employee':
-        component = navigationEmployee;
-        break;
-      default:
-        component = navigationPorterOwner;
+    if(decodedJWT.merchantId) {
+      component = merchantNav;
+    } else {
+      component = consumerNav;
     }
     
     headers = headerNav.items.map((e) => {
