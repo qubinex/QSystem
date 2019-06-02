@@ -51,7 +51,7 @@ class Login extends Component {
                   <CardBody>
                     <Form onSubmit={this.handleSubmit}>
                       <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
+                      <p className="text-muted">Merchant login</p>
                       {
                         errorMsg !== '' ? <Alert color="info">{errorMsg}</Alert> : undefined
                       }
@@ -85,12 +85,9 @@ class Login extends Component {
                     </Form>
                   </CardBody>
                 </Card>
-                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
+                <Card className="text-white bg-warning py-5 d-md-down-none" style={{ width: 44 + '%' }}>
                   <CardBody className="text-center">
                     <div>
-                      <h2>Signin with facebook</h2>
-                      <br />
-                      <div className="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false" />
                     </div>
                   </CardBody>
                 </Card>

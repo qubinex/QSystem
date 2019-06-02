@@ -32,7 +32,7 @@ router.get('/', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   const { username, password } = req.body;
   // console.log( req.body);
-  passport.authenticate('local', {session: false}, (err, user, info) => {
+  passport.authenticate('consumer-local', {session: false}, (err, user, info) => {
     req.login(user, {session: false}, (err) => {
       console.log('Using passport-local authentication...')
       // console.log('Inside req.login() callback')
@@ -66,7 +66,54 @@ router.post('/login', (req, res, next) => {
         username: user.username,
         expires: expires,
         roleBinary: user.role_binary || userRoles.accessLevels.guest,
-        merchantId: 2,
+      }
+      const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
+      
+      console.log('Token: ' + token);
+      console.log('User name: ' + user.username);
+
+      res.cookie('jwt', token, { 
+        httpOnly: true,
+        secure: process.env.JWT_COOKIE_IS_SECURE === 'true',
+        expire: expires,
+        overwrite: true,
+      });
+      res.status(200).send({ username, token });
+      //return res.send('You were authenticated & logged in!\n');
+    })
+  })(req, res, next);
+});
+
+router.post('/loginMerchant', (req, res, next) => {
+  const { username, password } = req.body;
+  // console.log( req.body);
+  passport.authenticate('merchant-local', {session: false}, (err, user, info) => {
+    req.login(user, {session: false}, (err) => {
+      // if error
+      if (err){
+        console.log( 'Login error occured' );
+        console.log( err );
+        return res.status(400).send('Something went wrong, please contact Akademeet');
+      }
+      // if not valid user
+      if (!user){
+        console.log( 'no valid user found' );
+        console.log( err );
+        return res.status(401).send('Wrong combination of username/password.');
+      }
+      // JWT payload
+      let expires = Date.now() + parseInt(process.env.JWT_EXPIRATION_MS);
+      /*
+      console.log('expirey after create: ' + expires)
+      console.log('Date.now(): ' + Date.now())
+      */
+      // console.log(user);
+      const payload = {
+        uid: user.id,
+        username: user.username,
+        expires: expires,
+        roleBinary: user.role_binary || userRoles.accessLevels.guest,
+        merchantId: user.merchant_id,
       }
       const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
       

@@ -20,6 +20,7 @@ import RequireAuth from './utils/authHOC';
 // Pages
 import { Page404, Page500, Register } from './views/Pages';
 import Login from './views/Auth/Login';
+import LoginMerchant from './views/Auth/LoginMerchant';
 import Logout from './views/Auth/Logout';
 
 // import { renderRoutes } from 'react-router-config';
@@ -29,6 +30,7 @@ function App(props) {
     <HashRouter>
       <Switch>
         <Route exact path="/login" name="Login Page" component={Login} />
+        <Route exact path="/loginMerchant" name="Merchant login Page" component={LoginMerchant} />
         <Route exact path="/logout" name="Logout" component={Logout} />
         <Route exact path="/register" name="Register Page" component={Register} />
         <Route exact path="/404" name="Page 404" component={Page404} />
