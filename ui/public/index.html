@@ -25,28 +25,7 @@
     -->
   </head>
 
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '2375778252484998',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.3'
-      });
 
-      FB.AppEvents.logPageView();
-
-    };
-
-    (function(d, s, id){
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    
-  </script>
 
   <!-- BODY options, add following classes to body to change options
 
@@ -80,9 +59,9 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.3&appId=2375778252484998&autoLogAppEvents=1"></script>
+    
     <div id="root"></div>
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 var jwtDecode = require('jwt-decode');
 const userRoles = require('../config/userRoles');
+const Auth = require('../models/users/Auth');
 
 // sidebar nav config
 const navigationPorterOwner = require('../views/_nav/_nav');
@@ -65,7 +66,7 @@ router.post('/login', (req, res, next) => {
         username: user.username,
         expires: expires,
         roleBinary: user.role_binary || userRoles.accessLevels.guest,
-        schoolId: user.school_id,
+        merchantId: 2,
       }
       const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
       
@@ -85,12 +86,53 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/facebook/callback',
-  passport.authenticate('facebook'), (err, user, info) => {
+(err, user, info) => {
     console.log('fb login success');
   }
 );
 
 router.get('/facebook', passport.authenticate('facebook'));
+
+router.post('/verifyFacebookLogin', (req, res) => {
+  console.log(req.body);
+  Auth.FindOrCreateConsumer(req.body, (err, rows) => {
+    // if error
+    if (err){
+      console.log( 'Login error occured' );
+      console.log( err );
+      return res.status(400).send('Something went wrong, please contact Akademeet');
+    }
+    // JWT payload
+    let expires = Date.now() + parseInt(process.env.JWT_EXPIRATION_MS);
+    /*
+    console.log('expirey after create: ' + expires)
+    console.log('Date.now(): ' + Date.now())
+    */
+    const user = rows;
+    console.log(user)
+    username = user.username;
+    console.log(user);
+    const payload = {
+      uid: user.id,
+      username: user.username,
+      expires: expires,
+      roleBinary: user.role_binary || userRoles.accessLevels.guest,
+      merchantId: 2,
+    }
+    const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
+    
+    console.log('Token: ' + token);
+    console.log('User name: ' + user.username);
+
+    res.cookie('jwt', token, { 
+      httpOnly: true,
+      secure: process.env.JWT_COOKIE_IS_SECURE === 'true',
+      expire: expires,
+      overwrite: true,
+    });
+    res.status(200).send({ username, token });
+  })
+})
 
 router.post('/verifyToken',  (req, res) => {
   passport.authenticate('jwt', {session: false}, (err, token) => {

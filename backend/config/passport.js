@@ -90,6 +90,7 @@ module.exports = function(passport) {
       callbackURL: "/auth/facebook/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
+      console.log('??')
       Auth.FindOrCreateConsumer({ fbProfile: profile }, function (err, user) {
         return cb(err, user);
       });

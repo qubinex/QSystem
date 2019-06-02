@@ -13,6 +13,38 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    this.loadFBLoginAPI();
+  }
+
+  loadFBLoginAPI = () => {
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId      : '2375778252484998',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v3.3'
+      });
+
+      window.FB.AppEvents.logPageView();
+      
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+
+  checkLoginState() {
+    window.FB.getLoginStatus(function(response) {
+      this.statusChangeCallback(response);
+    }.bind(this));
+  }
+
   handleInputChange = (event) => {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -32,29 +64,50 @@ class Login extends Component {
       .catch((error) => {
         // history.push('/login')
         this.setState({ errorMsg: error.response.data });
+        this.setState({ isSaving: false });
         // console.log(error);
       })
-      .finally(() => {
-        this.setState({ isSaving: false });
-      });
   }
 
-  fbLogin = (event) => {
-    const { history } = this.props;
-    axios.get('/auth/facebook', this.state, { withCredentials: true })
-    .then((response) => {
-      return history.push('/');
-    })
-    .catch((error) => {
-      // history.push('/login')
-      // console.log(error);
-      this.setState({ errorMsg: error.response ? error.response.data : 'Error' });
-      // console.log(error);
-    })
-    .finally(() => {
-      this.setState({ isSaving: false });
-    });
+  statusChangeCallback = (response) => {
+    console.log('statusChangeCallback');
+    console.log(response);
+    if (response.status === 'connected') {
+      const { history } = this.props;
+      window.FB.api('/me?fields=name,email', (response) => {
+        console.log(response)
+        axios.post('/auth/verifyFacebookLogin', { response })
+        .then((response) => {
+          return history.push('/');
+        })
+        .catch((err) => {
+          this.setState({ isSaving: false });
+        })
+      });
+      // this.testAPI();
+      console.log('connected');
+    } else if (response.status === 'not_authorized') {
+      this.setState({ errorMsg: "Please log into this app." });
+      // console.log("Please log into this app.");
+    } else {
+      this.setState({ errorMsg: "Please log into this facebook." });
+      // console.log("Please log into this facebook.");
+    }
   }
+
+  checkLoginState = () => {
+    window.FB.getLoginStatus(function(response) {
+      this.statusChangeCallback(response);
+    }.bind(this));
+  }
+
+  handleFBLogin = () => {
+    console.log('handlefblogin')
+    window.FB.login(this.checkLoginState(), {
+      scope: 'email',
+      return_scopes: true
+    });
+    }
 
   render() {
     const { isSaving, errorMsg } = this.state;
@@ -107,9 +160,12 @@ class Login extends Component {
                     <div>
                       <h2>Signin with facebook</h2>
                       <br />
-                      <div className="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false" />
-                      <Button onClick={this.fbLogin}>
-                        FB
+                      <div>
+                        {/* <div className="fb-login-button" data-width="" data-size="medium" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="true" > */}                          
+                      
+                      </div>
+                      <Button className="btn-facebook btn-brand" color="primary" onClick={this.handleFBLogin}>
+                        <i className="fa fa-facebook" /> <span>Continue with facebook</span>
                       </Button>
                     </div>
                   </CardBody>
