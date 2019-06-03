@@ -144,10 +144,7 @@ router.post('/verifyFacebookLogin', (req, res) => {
     }
     // JWT payload
     let expires = Date.now() + parseInt(process.env.JWT_EXPIRATION_MS);
-    /*
-    console.log('expirey after create: ' + expires)
-    console.log('Date.now(): ' + Date.now())
-    */
+    
     const user = rows;
     console.log(user)
     username = user.username;
