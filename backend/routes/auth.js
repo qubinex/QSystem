@@ -146,9 +146,8 @@ router.post('/verifyFacebookLogin', (req, res) => {
     let expires = Date.now() + parseInt(process.env.JWT_EXPIRATION_MS);
     
     const user = rows;
-    console.log(user)
     username = user.username;
-    console.log(user);
+    console.log('>>>>>'+rows)
     const payload = {
       uid: user.id,
       username: user.username,
@@ -156,6 +155,7 @@ router.post('/verifyFacebookLogin', (req, res) => {
       roleBinary: user.role_binary || userRoles.accessLevels.guest,
       // merchantId: 2,
     }
+    
     const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
     
     console.log('Token: ' + token);

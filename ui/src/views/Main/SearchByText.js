@@ -18,15 +18,24 @@ class SearchByText extends Component {
     };
   }
 
+  setStep = (step) => {
+    this.setState({ step });
+  }
+
+  setVendorDetails = (qrId, vendorDetail) => {
+    this.setState({ qrId, vendorDetail });
+    this.setStep(2.1);
+  }
+
   getComponent = () => {
     const { step } = this.state;
     let component = null;
     switch (step) {
-      case 2:
+      case 2.1:
         component = <SearchResult />;
         break;
       default:
-        component = <SearchVendor />;
+        component = <SearchVendor setVendorDetails={this.setVendorDetails} />;
         break;
     }
     return component;

@@ -13,7 +13,7 @@ var Auth={
                 WHERE facebook_id = ? `;
     db.query(sql, [id])
       .then((result) => {
-        if(result[0] && result[0].length ===1) {
+        if(result[0] && result[0].length === 1) {
           // user found by facebookId
           return callback(null, result[0]);
         } else {
@@ -22,16 +22,20 @@ var Auth={
           console.log(fbProfile.response);
           sql = ` INSERT INTO credential_consumer (email, username, nickname, facebook_id, password)
                   VALUES(?, ?, ?, ?, ?)`
-          return db.query(sql, [email, name, name, id, 'DFGHGH%^&*(JNBVFTYHBVGYJJJ'])
+          db.query(sql, [email, name, name, id, 'DFGHGH%^&*(JNBVFTYHBVGYJJJ'])
+          .then(() => {
+            sql = ` SELECT * FROM credential_consumer
+                    WHERE facebook_id = ? `;
+            return db.query(sql, [id]);
+          })
+          .then((result) => {
+            callback(null, result[0][0]);
+          })
+          .catch((err) => {
+            callback(err, null);
+            console.log(err);
+          })
         }
-      })
-      .then(() => {
-        sql = ` SELECT * FROM credential_consumer
-                WHERE facebook_id = ? `;
-        return db.query(sql, [id]);
-      })
-      .then((result) => {
-        callback(null, result[0][0]);
       })
       .catch((err) => {
         callback(err, null);

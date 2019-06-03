@@ -6,7 +6,7 @@ var MainModel={
   getVendorDetail:function(qrId, callback){
     const todayDate = moment().format('YYYY-MM-DD');
     const sql = ` SELECT 
-                    vl.*
+                    vl.*, vt.name vendor_type
                   FROM
                       merchant_list vl
                   LEFT JOIN
