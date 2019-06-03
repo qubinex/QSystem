@@ -9,7 +9,7 @@ var Auth={
   },
   FindOrCreateConsumer:function(fbProfile, callback) {
     const {email, name, id} = fbProfile.response;
-    let sql = ` SELECT facebook_id  FROM credential_consumer
+    let sql = ` SELECT email, username, nickname, facebook_id FROM credential_consumer
                 WHERE facebook_id = ? `;
     db.query(sql, [id])
       .then((result) => {
