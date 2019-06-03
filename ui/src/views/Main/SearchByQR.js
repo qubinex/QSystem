@@ -37,7 +37,7 @@ class SearchByQR extends Component {
     const { history } = this.props;
     switch (step) {
       case '2.1':
-        alert(step);
+        // alert(step);
         component = <SearchResultComponent history={history} />;
         break;
       case '2.2':

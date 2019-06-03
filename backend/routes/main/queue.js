@@ -63,6 +63,7 @@ router.post('/submitQueue',
   routesAuthService.allowOnly(userRoles.accessLevels.guest, (req, res) => {
     const jwt = req.cookies.jwt;
     const decodedJWT = jwtDecode(jwt);
+    console.log(decodedJWT)
     const data = req.body;
     const { vendorId } = data;
     QueueModel.submitQueue(decodedJWT.uid, vendorId, function(err,rows){

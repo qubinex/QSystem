@@ -133,8 +133,6 @@ router.get('/facebook/callback',
   }
 );
 
-router.get('/facebook', passport.authenticate('facebook'));
-
 router.post('/verifyFacebookLogin', (req, res) => {
   console.log(req.body);
   Auth.FindOrCreateConsumer(req.body, (err, rows) => {
@@ -159,7 +157,7 @@ router.post('/verifyFacebookLogin', (req, res) => {
       username: user.username,
       expires: expires,
       roleBinary: user.role_binary || userRoles.accessLevels.guest,
-      merchantId: 2,
+      // merchantId: 2,
     }
     const token = jwt.sign(JSON.stringify(payload), process.env.JWT_SECRET);
     

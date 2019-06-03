@@ -30,7 +30,7 @@ class MainPage extends Component {
                 <HomePageWidget mainText="" header="Scan QR code" icon="fa fa-qrcode" link="/#/Main/SearchByQR" />
               </Col>
               <Col xs="6">
-                <HomePageWidget mainText="" header="Search" icon="fa fa-search" />
+                <HomePageWidget mainText="" header="Search" icon="fa fa-search" link="/#/Main/SearchByText" />
               </Col>
             </Row>
           </CardBody>
