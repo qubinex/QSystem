@@ -147,7 +147,7 @@ router.post('/verifyFacebookLogin', (req, res) => {
     
     const user = rows;
     username = user.username;
-    console.log('>>>>>'+rows)
+    console.log('>>>>>' + rows)
     const payload = {
       uid: user.id,
       username: user.username,

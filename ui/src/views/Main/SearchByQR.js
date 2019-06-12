@@ -11,6 +11,7 @@ import MainContext from './MainContext';
 import QRReaderComponent from './QRReader';
 import SearchResultComponent from './SearchResult';
 import SearchResultInvalidComponent from './SearchResultInvalid';
+import QueueHeavy from './QueueHeavy';
 
 class SearchByQR extends Component {
   constructor(props) {
@@ -24,7 +25,11 @@ class SearchByQR extends Component {
 
   setVendorDetails = (qrId, vendorDetail) => {
     this.setState({ qrId, vendorDetail });
-    this.setStep('2.1');
+    let step = '2.1';
+    if (vendorDetail && parseInt(vendorDetail.system_waiting_time_minute, 10) > 30) {
+      step = '2.3';
+    }
+    this.setStep(step);
   }
 
   setStep = (step) => {
@@ -33,15 +38,18 @@ class SearchByQR extends Component {
 
   getComponent = () => {
     let component = null;
-    const { step } = this.state;
+    const { step, vendorDetail } = this.state;
     const { history } = this.props;
     switch (step) {
       case '2.1':
         // alert(step);
-        component = <SearchResultComponent history={history} />;
+        component = <SearchResultComponent history={history} setStep={this.setStep} />;
         break;
       case '2.2':
         component = <SearchResultInvalidComponent />;
+        break;
+      case '2.3':
+        component = <QueueHeavy vendorDetail={vendorDetail} />;
         break;
       default:
         component = <QRReaderComponent setVendorDetails={this.setVendorDetails} setStep={this.setStep} />;

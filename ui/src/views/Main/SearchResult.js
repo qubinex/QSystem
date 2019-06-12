@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-
 import {
   Card,
-  CardHeader,
+  ButtonGroup,
   CardBody,
   Row,
   Col,
   Button,
+  Alert,
 } from 'reactstrap';
 import Axios from 'axios';
 import socketIOClient from 'socket.io-client';
@@ -47,10 +46,7 @@ class SearchResult extends Component {
     const { history } = this.props;
     const { vendorDetail } = this.context;
     Axios.post('/queue/submitQueue', { vendorId: vendorDetail.id })
-      .then((res) => {
-        console.log('success');
-        return history.push('/dashboard');
-      })
+      .then(() => history.push('/dashboard'))
       .catch((err) => {
         this.setState({ isSaving: false });
       });
@@ -58,6 +54,7 @@ class SearchResult extends Component {
 
   render() {
     const { qrId, vendorDetail } = this.context;
+    const { setStep } = this.props;
     const { queueStatus, isSaving } = this.state;
     const latestQueueNr = queueStatus ? queueStatus.maxQueueNr : 0;
     const queueCount = queueStatus ? queueStatus.queueNr : 0;
@@ -65,6 +62,13 @@ class SearchResult extends Component {
       <React.Fragment>
         <Card>
           <CardBody>
+            {
+              (parseInt(queueCount, 0) * vendorDetail.system_waiting_time_minute) > 30 ? (
+                <Alert color="danger">
+                  The selected vendor is current having longer than usual waiting time.
+                </Alert>
+              ) : undefined
+            }
             <Row>
               <Col xs={{ offset: 6, size: 4 }}>
                 <b>{vendorDetail.name}</b>
@@ -84,7 +88,7 @@ class SearchResult extends Component {
                 Today average:
               </Col>
               <Col>
-                {vendorDetail.system_waiting_time_minute}
+                {parseInt(vendorDetail.avg_waiting_time, 0) === 0 ? vendorDetail.waiting_time_minute : vendorDetail.avg_waiting_time}
                  mins
               </Col>
             </Row>
@@ -114,10 +118,15 @@ class SearchResult extends Component {
               </Col>
             </Row>
             <Row>
-              <Col xs={{ offset: 6, size: 4 }}>
-                <Button type="button" color="success" onClick={this.handleSubmit} disabled={isSaving}>
-                  Queue now
-                </Button>
+              <Col xs={{ offset: 5, size: 7 }}>
+                <ButtonGroup className="btn-block">
+                  <Button type="button" color="success" onClick={this.handleSubmit} disabled={isSaving}>
+                    Queue now
+                  </Button>
+                  <Button color="warning" onClick={() => setStep('1.0')}>
+                    <i className="fa fa-refresh" />
+                  </Button>
+                </ButtonGroup>
               </Col>
             </Row>
           </CardBody>

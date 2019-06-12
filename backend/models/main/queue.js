@@ -4,8 +4,9 @@ const logger = require('../../services/logger');
 
 var QueueModel={
   getQueueDashBoard:function(uid, callback) {
-    const startDate = moment()
-    const endDate = moment().add(7, 'days');
+    // const startDate = moment();
+    const startDate = moment('2019-06-03'); // for demo
+    const endDate = moment('2019-06-03').add(7, 'days');
     const sql = ` SELECT qr.*, vl.name, qrc.*, qrc1.*
                   FROM queue_record qr
                   LEFT JOIN merchant_list vl ON vl.id = qr.vendor_id
@@ -44,7 +45,8 @@ var QueueModel={
       });
   },
   getCurrentQueueStatus:function(qrId, callback){
-    const todayDate = moment().format('YYYY-MM-DD');
+    // const todayDate = moment().format('YYYY-MM-DD');
+    const todayDate = moment('2019-06-03').format('YYYY-MM-DD'); // for demo purpose
     const sql = ` SELECT count(q.id) as queue_count, max(queue_nr) as max_queue_nr
                   FROM queue_record q
                   LEFT JOIN merchant_list v ON v.id = q.vendor_id
@@ -60,7 +62,8 @@ var QueueModel={
     });
   },
   submitQueue:function(uid, vendorId, callback) {
-    const momentNow = moment();
+    // const momentNow = moment();
+    const momentNow = moment('2019-06-03'); // for demo purpose
     const todayDate = momentNow.format('YYYY-MM-DD');
     const time = momentNow.format('YYYY-MM-DD HH:mm:ss');
     let sql = ` SELECT MAX(queue_nr) max_queue_nr FROM queue_record WHERE vendor_id =? AND date=?`;
@@ -68,8 +71,8 @@ var QueueModel={
     .then((result) => {
       let nextQueueNr = 100000;
       console.log(result)
-      if(result[0].max_queue_nr) {
-        nextQueueNr = result[0].max_queue_nr;
+      if(result[0][0].max_queue_nr) {
+        nextQueueNr = result[0][0].max_queue_nr + 1;
       }
       sql = ` INSERT INTO queue_record (vendor_id, consumer_id, date, start_time, queue_nr)
               VALUES (?, ?, ?, ?, ?)`;

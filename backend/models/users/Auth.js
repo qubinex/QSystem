@@ -9,13 +9,14 @@ var Auth={
   },
   FindOrCreateConsumer:function(fbProfile, callback) {
     const {email, name, id} = fbProfile.response;
-    let sql = ` SELECT email, username, nickname, facebook_id FROM credential_consumer
+    let sql = ` SELECT id, email, username, nickname, facebook_id FROM credential_consumer
                 WHERE facebook_id = ? `;
     db.query(sql, [id])
       .then((result) => {
         if(result[0] && result[0].length === 1) {
           // user found by facebookId
-          return callback(null, result[0]);
+          // console.log('result for existing user', result[0][0])
+          return callback(null, result[0][0]);
         } else {
           // create user with fb id
           console.log(`creating user with fb profile`);
@@ -29,17 +30,18 @@ var Auth={
             return db.query(sql, [id]);
           })
           .then((result) => {
+            // onsole.log('result after create', result[0][0])
             callback(null, result[0][0]);
           })
           .catch((err) => {
-            callback(err, null);
             console.log(err);
+            callback(err, null);
           })
         }
       })
       .catch((err) => {
-        callback(err, null);
         console.log(err);
+        callback(err, null);
       })
   }
 }

@@ -5,6 +5,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Button,
 } from 'reactstrap';
 import Axios from 'axios';
 import QRReader from 'react-qr-reader';
@@ -14,7 +15,7 @@ class QRReaderComponent extends Component {
     const { history, setVendorDetails, setStep } = this.props;
     if (qrCode) {
       this.makeBeepSound();
-      Axios.post('main/searchByQRCode', { qrId: qrCode })
+      Axios.get(`main/searchByQRCode/${qrCode}`)
         .then((res) => {
           const { data } = res;
           if (data.length === 0) {
@@ -31,7 +32,7 @@ class QRReaderComponent extends Component {
   }
 
   handleError = () => {
-
+    // Error handling here
   }
 
   makeBeepSound = () => {
@@ -51,10 +52,6 @@ class QRReaderComponent extends Component {
     v.stop(sound.currentTime + duration * 0.001);
   }
 
-  handleSearch = () => {
-
-  }
-
   render() {
     return (
       <Card>
@@ -62,6 +59,8 @@ class QRReaderComponent extends Component {
           Scan QR code
         </CardHeader>
         <CardBody>
+          <Button outline onClick={() => this.handleScan('Q-1000000002-moderate')}>Moderate</Button>
+          <Button outline onClick={() => this.handleScan('Q-1000000004-busy')}>Busy</Button>
           <QRReader
             delay={300}
             onError={this.handleError}
