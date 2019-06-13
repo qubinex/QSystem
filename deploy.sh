@@ -139,7 +139,17 @@ if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
   exitWithMessageOnError "Kudu Sync failed"
 fi
 
-# 2. Select node version
+# 2. Install Packages using Yarn
+echo "2. Install $NPM_CMD packages"
+if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
+  cd "$DEPLOYMENT_SOURCE"
+  eval "$NPM_CMD" install
+  exitWithMessageOnError "Installing npm packages failed"
+  echo "Finished installing npm packages"
+  cd - > /dev/null
+fi
+
+# 3. Select node version
 # selectNodeVersion
 
 # 3. Install npm packages
@@ -151,15 +161,6 @@ fi
 #  cd - > /dev/null
 #fi
 
-# 3. Install Packages using Yarn
-echo "2. Install $NPM_CMD packages"
-if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
-  cd "$DEPLOYMENT_SOURCE"
-  eval "$NPM_CMD" install --network-timeout 1000000 --ignore-engines
-  exitWithMessageOnError "Installing npm packages failed"
-  echo "Finished installing npm packages"
-  cd - > /dev/null
-fi
 
 # 4. Build React App
 echo "3. Build System"
