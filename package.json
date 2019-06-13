@@ -16,6 +16,5 @@
     "start-dev": "concurrently \"cd backend && nodemon\" \"cd ui && yarn start\"",
     "start:prod": "cd backend && yarn start:prod",
     "start": "cd backend && yarn start",
-    "heroku-postbuild": "yarn build"
 	}
 }
