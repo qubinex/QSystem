@@ -4,7 +4,8 @@ const logger = require('../../services/logger');
 
 var MainModel={
   getMerchantQueueList:function(merchantId, callback){
-    const todayDate = moment().format('YYYY-MM-DD');
+    //const todayDate = moment().format('YYYY-MM-DD');
+    const todayDate = moment('2019-06-03').format('YYYY-MM-DD');
     const sql = ` SELECT 
                     qr.id, qr.reserve_capacity, qr.other_details, qr.queue_nr, vl.name, cs.nickname, cs.username
                   FROM queue_record qr
