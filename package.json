@@ -15,6 +15,6 @@
     "install-win": "(cd backend && yarn) && cd.. && (cd ui && yarn)",
     "start-dev": "concurrently \"cd backend && nodemon\" \"cd ui && yarn start\"",
     "start:prod": "cd backend && yarn start:prod",
-    "start": "cd backend && yarn start",
+    "start": "cd backend && yarn start"
 	}
 }
