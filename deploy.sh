@@ -35,6 +35,9 @@ DEPLOYMENT_TOOLS=/home/site/deployments/tools
 YARN_DIR=$DEPLOYMENT_TOOLS/yarn
 TMP_DIR=/tmp
 
+echo ">>>>> ${YARN_DIR}"
+
+
 if [[ ! -n "$DEPLOYMENT_SOURCE" ]]; then
   DEPLOYMENT_SOURCE=$SCRIPT_DIR
 fi
