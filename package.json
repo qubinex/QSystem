@@ -4,7 +4,7 @@
   "private": true,
   "engines": {
     "node": "10.15.1",
-    "yarn": "1.16"
+    "yarn": "1.16.0"
   },
   "dependencies": {
     "concurrently": "^4.1.0"
