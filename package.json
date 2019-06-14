@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "concurrently \"cd backend && yarn build\" \"cd ui && yarn build-js\"",
-    "install": "concurrently \"cd backend && yarn install\" \"cd ui && yarn install\"",
+    "install": "concurrently \"cd backend && yarn\" \"cd ui && yarn\"",
     "install-backup": "(cd backend && yarn) && (cd ui && yarn)",
     "install-win": "(cd backend && yarn) && cd.. && (cd ui && yarn)",
     "start-dev": "concurrently \"cd backend && nodemon\" \"cd ui && yarn start\"",
