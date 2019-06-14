@@ -57,6 +57,12 @@ const MerchantMain = Loadable({
   loading: Loading,
 });
 
+const RewardsMerchantMain = Loadable({
+  loader: () => import('./views/Rewards/MerchantList'),
+  loading: Loading,
+});
+
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-condg
 const routes = [
   /*
@@ -71,6 +77,7 @@ const routes = [
   { path: '/Main/SearchResult', exact: true, name: 'SearchResult', component: RequireAuth(SearchResult) },
   { path: '/Queue/Status', exact: true, name: 'Queue status', component: RequireAuth(QueueStatus) },
   { path: '/Queue/StatusHeavy', exact: true, name: 'Queue heavy', component: RequireAuth(QueueStatusHeavy) },
+  { path: '/Rewards', exact: true, name: 'Merchant rewards', component: RequireAuth(RewardsMerchantMain) },
 
 
   { path: '/Merchant/Main', exact: true, name: 'Queue heavy', component: RequireAuth(MerchantMain) },

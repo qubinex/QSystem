@@ -26,6 +26,11 @@ module.exports = {
       url: '/Main',
       icon: 'fa fa-table',
     },
+    {
+      name: 'Merchant reward',
+      url: '/Rewards',
+      icon: 'fa fa-table',
+    },
     /*
     {
       title: true,
